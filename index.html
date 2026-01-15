@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakrao - รากเรา | ตลาดสินค้าท้องถิ่น</title>
+    <script src="https://cdn.tailwindcss.com"></script> </head>
+<body class="bg-gray-50">
+    <nav class="bg-green-700 p-4 text-white shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">🌳 รากเรา (Rakrao)</h1>
+            <div class="space-x-4">
+                <a href="#" class="hover:underline">หน้าแรก</a>
+                <a href="#" class="hover:underline">ตะกร้าสินค้า (<span id="cart-count">0</span>)</a>
+                <a href="#" class="hover:underline">เข้าสู่ระบบ</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto my-8 p-4">
+        <h2 class="text-3xl font-semibold mb-6 text-gray-800">สินค้าแนะนำจากชุมชน</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition">
+                <img src="https://via.placeholder.com/300x200" alt="สินค้า" class="rounded-lg w-full mb-4">
+                <h3 class="text-xl font-bold">ผ้าทอมือลายไทย</h3>
+                <p class="text-gray-600 my-2">งานฝีมือประณีตจากกลุ่มแม่บ้านภาคเหนือ</p>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-green-600 font-bold text-xl">฿1,200</span>
+                    <button onclick="addToCart()" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">เพิ่มลงตะกร้า</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition">
+                <img src="https://via.placeholder.com/300x200" alt="สินค้า" class="rounded-lg w-full mb-4">
+                <h3 class="text-xl font-bold">น้ำผึ้งป่าแท้ 100%</h3>
+                <p class="text-gray-600 my-2">คัดสรรจากป่าธรรมชาติ ปลอดสารพิษ</p>
+                <div class="flex justify-between items-center mt-4">
+                    <span class="text-green-600 font-bold text-xl">฿350</span>
+                    <button onclick="addToCart()" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">เพิ่มลงตะกร้า</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let count = 0;
+        function addToCart() {
+            count++;
+            document.getElementById('cart-count').innerText = count;
+            alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว!');
+        }
+    </script>
+</body>
+</html>

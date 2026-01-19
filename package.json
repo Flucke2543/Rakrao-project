@@ -1,1 +1,9 @@
-
+{
+  "name": "rakrao-api",
+  "version": "1.0.0",
+  "description": "แพลตฟอร์มอีคอมเมิร์ซเพื่อชุมชนไทย",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

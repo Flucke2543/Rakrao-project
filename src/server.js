@@ -1,5 +1,5 @@
-const express = require('express'); //
-const path = require('path'); //
+const express = require('express'); //ประกาศชื่อเรียกเพื่อใช้ฟังก์ชันที่เราไปหยิบมาจาก Library
+const path = require('path'); //ประกาศเรียกเครื่องมือสำหรับจัดกาเรียงลำดับที่อยู่ไฟล์ 
 const app = express(); //
 const port = 3000; //
 

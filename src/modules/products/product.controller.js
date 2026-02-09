@@ -23,7 +23,7 @@ exports.deleteProduct = (req, res) => {
 
 // ระบบแก้ไขสินค้า
 exports.updateProduct = (req, res) => {
-    const { id } = req.params;
+    const { id } = Number(req.params.id);
     const { name, price } = req.body;
     const index = products.findIndex(p => p.id === id);
     if (index !== -1) {

@@ -2,7 +2,7 @@ const express = require('express'); //ประกาศชื่อเรีย
 const path = require('path'); //ประกาศเรียกเครื่องมือสำหรับจัดกาเรียงลำดับที่อยู่ไฟล์ 
 const app = express(); //สร้างพื้นที่บนหน้าโปรแกรมสำหรับใส่ทุกคำสั่งด้านล่างลงไป เหมือนสมองหลักแต่ว่าแค่อุ่นเครืองก่อน
 const port = 3000; //พิกัดของโปรแกรมที่จะบอกกับคอมพิวเตอร์เครื่องนั้นๆที่ใช้งาน เหมือนเป็นส่วนหนึ่งของ IPเครื่อง
-
+let products = [];
 // ดึงข้อมูลส่วนสินค้ามาเชื่อมต่อ
 const productController = require('./modules/products/product.controller');
 
@@ -19,10 +19,23 @@ app.get('/api/products', productController.getAllProducts);
 // เขียนข้อมูลลงใน Database (เพิ่มรายการสินค้า)
 app.post('/api/products', productController.createProduct);
 // สำหรับแก้ไขข้อมูล
-app.put('/api/products/:id', productController.updateProduct);   
-// สำหรับลบข้อมูล
-app.delete('/api/products/:id', productController.deleteProduct); 
-// สั่งรันโปรแกรมทั้งหมด 
+// วางแทนที่บรรทัด 22-25 ใน server.js
+app.delete('/api/products/:id', (req, res) => {
+    const { id } = req.params;
+    products = products.filter(p => p.id != id);
+    res.json({ message: "ลบสำเร็จ" });
+});
+app.put('/api/products/:id', (req, res) => {
+    const { id } = req.params;
+    const { name, price } = req.body;
+    const index = products.findIndex(p => p.id == id);
+    if (index !== -1) {
+        products[index] = { id: Number(id), name, price };
+        res.json({ message: "แก้ไขสำเร็จ" });
+    } else {
+        res.status(404).json({ message: "ไม่พบสินค้า" });
+    }
+});
 app.listen(port, () => {
     //
     console.log(`🌳 Rakrao System running at http://localhost:${port}`);

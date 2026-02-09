@@ -9,7 +9,7 @@ const productController = require('./modules/products/product.controller');
 //สร้างตัวแปลภาษา J.son
 app.use(express.json()); 
 
-// หน้าแรก: ส่งไฟล์หน้าบ้านไปแสดงผล
+// การแสดงผลหน้าแรกของโปรแกรม เมื่อถูกเข้า
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html')); //
 });

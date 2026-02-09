@@ -24,9 +24,32 @@
         async function load() {
             const r = await fetch('/api/products');
             const d = await r.json();
-            document.getElementById('out').innerHTML = d.map(x => `<p>✅ ${x.name} - ${x.price} บาท</p>`).join('');
-        }
+           document.getElementById('out').innerHTML = d.map(x => `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; background: #2d2d2d; padding: 10px; border-radius: 5px;">
+                    <span>✅ ${x.name} - ${x.price} บาท</span>
+                    <div>
+                        <button onclick="editProduct('${x.id}', '${x.name}', ${x.price})" style="background: #ffc107; border: none; border-radius: 3px; cursor: pointer; margin-right: 5px;">แก้ไข</button>
+                        <button onclick="deleteProduct('${x.id}')" style="background: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">ลบ</button>
+                    </div>
+                </div>
+            `).join('');}
         load();
-    </script>
-</body>
-</html>
+        async function deleteProduct(id) {
+            if (confirm('คุณแน่ใจนะว่าจะลบ?')) {
+                await fetch(`/api/products/${id}`, { method: 'DELETE' });
+                load();
+            }
+        }
+        async function editProduct(id, oldName, oldPrice) {
+            const name = prompt("ชื่อสินค้าใหม่:", oldName);
+            const price = prompt("ราคาใหม่:", oldPrice);
+            if (name && price) {
+                await fetch(`/api/products/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, price })
+                });
+                load();
+            }
+        }
+    </script>  </body>  </html>

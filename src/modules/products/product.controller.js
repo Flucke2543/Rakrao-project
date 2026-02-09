@@ -15,7 +15,7 @@ exports.createProduct = (req, res) => {
 };
 // ระบบลบสินค้า
 exports.deleteProduct = (req, res) => {
-    const { id } = req.params;
+    const id = Number(req.params.id);
     // กรองเอาตัวที่ id ไม่ตรงเก็บไว้ (ตัวที่ตรงกับ id ที่ส่งมาจะหายไป)
     products = products.filter(p => p.id !== id); 
     res.json({ message: "ลบสำเร็จ" });

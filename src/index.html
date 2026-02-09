@@ -47,7 +47,7 @@
                 await fetch(`/api/products/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, price })
+                    body: JSON.stringify({ name, price: Number(price) })
                 });
                 load();
             }

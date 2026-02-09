@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Rakrao Admin</title>
+</head>
+<body style="background: #121212; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif;">
 
+    <div style="background: #1e1e1e; padding: 40px; border-radius: 20px; border: 1px solid #333; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+        <div style="font-size: 40px; margin-bottom: 10px;">🌿</div>
+        <h2 style="margin: 0; color: #4caf50;">เข้าสู่ระบบจัดการ</h2>
+        <p style="color: #888; font-size: 13px; margin-bottom: 25px;">เฉพาะเจ้าของร้านเท่านั้นโว้ยยย</p>
+
+        <div style="text-align: left; margin-bottom: 15px;">
+            <label style="font-size: 12px; color: #aaa;">ชื่อผู้ใช้งาน</label>
+            <input id="user" type="text" style="width: 100%; padding: 12px; margin-top: 5px; background: #121212; border: 1px solid #444; color: white; border-radius: 8px; box-sizing: border-box;">
+        </div>
+
+        <div style="text-align: left; margin-bottom: 20px;">
+            <label style="font-size: 12px; color: #aaa;">รหัสผ่าน</label>
+            <input id="pass" type="password" style="width: 100%; padding: 12px; margin-top: 5px; background: #121212; border: 1px solid #444; color: white; border-radius: 8px; box-sizing: border-box;">
+        </div>
+
+        <button onclick="handleLogin()" style="width: 100%; padding: 12px; background: #4caf50; border: none; color: white; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px;">เข้าสู่ระบบ</button>
+        
+        <p id="error-msg" style="color: #ff5252; font-size: 13px; margin-top: 15px;"></p>
+        
+        <a href="/" style="display: block; margin-top: 20px; color: #666; font-size: 12px; text-decoration: none;">⬅ กลับไปหน้าตลาด</a>
+    </div>
+
+    <script>
+        function handleLogin() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+
+            // รหัสผ่านชั่วคราว (แก้เป็นอะไรก็ได้ที่นายอยากใช้)
+            if (u === 'admin' && p === '1234') {
+                localStorage.setItem('rakrao_auth', 'true');
+                location.href = '/vendor/manage'; // วาร์ปไปไฟล์เก่าที่เปลี่ยนชื่อแล้ว
+            } else {
+                document.getElementById('error-msg').innerText = 'รหัสผิด! ลองใหม่อีกทีเพื่อน';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -9,44 +9,22 @@
     <hr>
     <div id="out"></div>
     <script>
-        async function add() {
-            const name = document.getElementById('n').value;
-            const price = document.getElementById('p').value;
-            await fetch('/api/products', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ name, price })
-            });
-            document.getElementById('n').value = '';
-            document.getElementById('p').value = '';
-            load();
-        }
-        async function load() {
+          async function load() {
             const r = await fetch('/api/products');
             const d = await r.json();
+            document.getElementById('out').innerHTML = d.map(x => `<p>✅ ${x.name} - ${x.price} บาท</p>`).join('');
             document.getElementById('out').innerHTML = d.map(x => `<p>✅ ${x.name} - ${x.price} บาท
-            <button onclick="edit(${x.id})">แก้ไข</button>
             <button onclick="del(${x.id})">ลบ</button>
             </p>`).join('');
         }
+        load();
         load(); //โหลดข้อมูลหลังจากเปิดเว็บ
         async function del(id) {
     if (confirm('ยืนยันว่าจะลบชิ้นนี้ใช่ไหม?')) {
         await fetch('/api/products/' + id, { method: 'DELETE' });
         load(); // ลบเสร็จแล้วให้โหลดรายการใหม่มาโชว์ทันที
-        }
-        async function edit(id) {
-        const newName = prompt("ใส่ชื่อสินค้าใหม่:");
-        const newPrice = prompt("ใส่ราคาใหม่:");
-        
-        // ตรวจสอบว่ามีการกรอกข้อมูลและไม่กด Cancel
-        if (newName && newPrice) {
-            await fetch('/api/products/' + id, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: newName, price: Number(newPrice) })
-            });
-            load(); // แก้ไขเสร็จแล้วให้โหลดรายการใหม่ทันที
+    }
+}
     </script>
 </body>
 </html>

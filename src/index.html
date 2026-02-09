@@ -5,7 +5,6 @@
     <title>Rakrao Admin Dashboard</title>
 </head>
 <body style="background-color: #1e1e1e; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex;">
-
     <div style="width: 260px; background-color: #252526; height: 100vh; position: fixed; border-right: 1px solid #333; display: flex; flex-direction: column;">
         <div style="padding: 30px 20px;">
             <h2 style="color: #4caf50; margin: 0;">🌿 RAKRAO</h2>
@@ -41,10 +40,7 @@
             </div>
 
             <div id="list" style="display: grid; gap: 10px;">
-                </div>
-        </div>
-
-    </div>
+                </div> </div>  </div>
 
     <script>
         // ฟังก์ชันสลับหน้า (หัวใจของ Sidebar)
@@ -52,16 +48,19 @@
             document.getElementById('section-user').style.display = name === 'user' ? 'block' : 'none';
             document.getElementById('section-inventory').style.display = name === 'inventory' ? 'block' : 'none';
         }
-    <script>
+        // 2. โหลดข้อมูล
         async function load() {
             const r = await fetch('/api/products');
             const d = await r.json();
-           document.getElementById('out').innerHTML = d.map(x => `
-                <div style="display: flex; justify-content: space-between; margin-bottom: 10px; background: #2d2d2d; padding: 10px; border-radius: 5px;">
-                    <span>✅ ${x.name} - ${x.price} บาท</span>
+            // อัปเดตตัวเลขหน้าแรก
+            document.getElementById('stat-count').innerText = d.length;
+            // พ่นรายการสินค้า
+            document.getElementById('list').innerHTML = d.map(x => `
+               <div style="display: flex; justify-content: space-between; align-items: center; background: #2d2d2d; padding: 15px; border-radius: 8px;">
+                    <span>✅ ${x.name}</b> - <span style="color: #4caf50;">${x.price} บาท</span></span>
                     <div>
-                        <button onclick="editProduct(${x.id}, '${x.name}', ${x.price})" style="background: #ffc107; border: none; border-radius: 3px; cursor: pointer; margin-right: 5px;">แก้ไข</button>
-                        <button onclick="deleteProduct(${x.id})" style="background: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">ลบ</button>
+                        <button onclick="editProduct(${x.id}, '${x.name}', ${x.price})" style="background: #ffc107; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-right: 5px;">แก้ไข</button>
+                        <button onclick="deleteProduct(${x.id})" style="background: #f44336; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">ลบ</button>
                     </div>
                 </div>
             `).join('');}
@@ -69,6 +68,7 @@
         async function add() {
             const name = document.getElementById('n').value;
             const price = document.getElementById('p').value;
+            if (!n || !p) return alert("กรุณากรอกให้ครบ");
             await fetch('/api/products', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -79,7 +79,7 @@
             load();
         }
         async function deleteProduct(id) {
-            if (confirm('คุณแน่ใจนะว่าจะลบ?')) {
+            if (confirm('ต้องการยืนยันที่จะลบหรือไม่?')) {
                 await fetch(`/api/products/${id}`, { method: 'DELETE' });
                 load();
             }

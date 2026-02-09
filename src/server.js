@@ -9,18 +9,18 @@ const productController = require('./modules/products/product.controller');
 //สร้างตัวแปลภาษา J.son
 app.use(express.json()); 
 
-// การแสดงผลหน้าแรกของโปรแกรม เมื่อถูกเข้า
-// 1. หน้าหลัก (Homepage / Dashboard)
+// --- 🌐 [ส่วนที่ 1: การจัดการเส้นทางหน้าเว็บ (HTML Routes)] ---
+// 1. หน้าแรก (Marketplace) - คนซื้อเข้ามาดูสินค้าสวยๆ
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 // 2. หน้าจัดการสินค้า (Products Management)
 app.get('/products', (req, res) => {
-    res.sendFile(path.join(__dirname, 'products.html'));
-});
-// 3. หน้าเข้าสู่ระบบ (Login Page)
-app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
+});
+// 3. หน้าจัดการสินค้า (Vendor Dashboard) - หน้าที่มีปุ่ม เพิ่ม/ลบ/แก้ไข (ย้ายมาจาก index เดิม)
+app.get('/vendor/manage', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'vendor.html'));
 });
 // เส้นทาง API
 app.get('/api/products', productController.getAllProducts);
@@ -31,5 +31,12 @@ app.delete('/api/products/:id', productController.deleteProduct);
 //
 app.listen(port, () => {
     //
-    console.log(`🌳 Rakrao System running at http://localhost:${port}`);
+    console.log(`
+    🌳 Rakrao Marketplace System is Running!
+    -----------------------------------------
+    🏠 Market Front: http://localhost:${port}
+    🔑 Login Page:   http://localhost:${port}/login
+    ⚙️ Management:   http://localhost:${port}/vendor/manage
+    -----------------------------------------
+    `);
 });

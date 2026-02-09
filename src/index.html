@@ -28,8 +28,8 @@
                 <div style="display: flex; justify-content: space-between; margin-bottom: 10px; background: #2d2d2d; padding: 10px; border-radius: 5px;">
                     <span>✅ ${x.name} - ${x.price} บาท</span>
                     <div>
-                        <button onclick="editProduct('${x.id}', '${x.name}', ${x.price})" style="background: #ffc107; border: none; border-radius: 3px; cursor: pointer; margin-right: 5px;">แก้ไข</button>
-                        <button onclick="deleteProduct('${x.id}')" style="background: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">ลบ</button>
+                        <button onclick="editProduct(${x.id}, '${x.name}', ${x.price})" style="background: #ffc107; border: none; border-radius: 3px; cursor: pointer; margin-right: 5px;">แก้ไข</button>
+                        <button onclick="deleteProduct(${x.id})" style="background: #f44336; color: white; border: none; border-radius: 3px; cursor: pointer;">ลบ</button>
                     </div>
                 </div>
             `).join('');}

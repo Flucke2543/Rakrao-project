@@ -17,14 +17,21 @@ app.get('/', (req, res) => {
 // เส้นทาง API Node เชื่อมหน้าเว็บกับ Data เพื่อแสดงรายการให้ดู (ค้นหาสินค้า) 
 app.get('/api/products', productController.getAllProducts);
 // เขียนข้อมูลลงใน Database (เพิ่มรายการสินค้า)
-app.post('/api/products', productController.createProduct);
-// สำหรับแก้ไขข้อมูล
-// วางแทนที่บรรทัด 22-25 ใน server.js
+// เพิ่มสินค้า
+app.post('/api/products', (req, res) => {
+    const newProduct = { id: Date.now(), ...req.body };
+    products.push(newProduct);
+    res.json(newProduct);
+});
+
+// ลบสินค้า (แก้ :id ให้ไม่มีเครื่องหมาย ' ปิดท้าย)
 app.delete('/api/products/:id', (req, res) => {
     const { id } = req.params;
     products = products.filter(p => p.id != id);
     res.json({ message: "ลบสำเร็จ" });
 });
+
+// แก้ไขสินค้า (แก้ :id ให้ไม่มีเครื่องหมาย ' ปิดท้าย)
 app.put('/api/products/:id', (req, res) => {
     const { id } = req.params;
     const { name, price } = req.body;
@@ -33,7 +40,7 @@ app.put('/api/products/:id', (req, res) => {
         products[index] = { id: Number(id), name, price };
         res.json({ message: "แก้ไขสำเร็จ" });
     } else {
-        res.status(404).json({ message: "ไม่พบสินค้า" });
+        res.status(404).send("ไม่พบสินค้า");
     }
 });
 app.listen(port, () => {

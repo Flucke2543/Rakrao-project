@@ -16,8 +16,10 @@ app.get('/', (req, res) => {
 
 // เส้นทาง API
 app.get('/api/products', productController.getAllProducts);
-//
+//CRUD สร้าง ลบ แก้ไข แสดง
 app.post('/api/products', productController.createProduct);
+app.put('/api/products/:id', productController.updateProduct);
+app.delete('/api/products/:id', productController.deleteProduct);
 //
 app.listen(port, () => {
     //

@@ -14,35 +14,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html')); //
 });
 
-// เส้นทาง API Node เชื่อมหน้าเว็บกับ Data เพื่อแสดงรายการให้ดู (ค้นหาสินค้า) 
+// เส้นทาง API
 app.get('/api/products', productController.getAllProducts);
-// เขียนข้อมูลลงใน Database (เพิ่มรายการสินค้า)
-// เพิ่มสินค้า
-app.post('/api/products', (req, res) => {
-    const newProduct = { id: Date.now(), ...req.body };
-    products.push(newProduct);
-    res.json(newProduct);
-});
-
-// ลบสินค้า (แก้ :id ให้ไม่มีเครื่องหมาย ' ปิดท้าย)
-app.delete('/api/products/:id', (req, res) => {
-    const { id } = req.params;
-    products = products.filter(p => p.id != id);
-    res.json({ message: "ลบสำเร็จ" });
-});
-
-// แก้ไขสินค้า (แก้ :id ให้ไม่มีเครื่องหมาย ' ปิดท้าย)
-app.put('/api/products/:id', (req, res) => {
-    const { id } = req.params;
-    const { name, price } = req.body;
-    const index = products.findIndex(p => p.id == id);
-    if (index !== -1) {
-        products[index] = { id: Number(id), name, price };
-        res.json({ message: "แก้ไขสำเร็จ" });
-    } else {
-        res.status(404).send("ไม่พบสินค้า");
-    }
-});
+//
+app.post('/api/products', productController.createProduct);
+//
 app.listen(port, () => {
     //
     console.log(`🌳 Rakrao System running at http://localhost:${port}`);

@@ -9,7 +9,19 @@
     <hr>
     <div id="out"></div>
     <script>
-          async function load() {
+        async function add() {
+            const name = document.getElementById('n').value;
+            const price = document.getElementById('p').value;
+            await fetch('/api/products', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ name, price })
+            });
+            document.getElementById('n').value = '';
+            document.getElementById('p').value = '';
+            load();
+        }
+        async function load() {
             const r = await fetch('/api/products');
             const d = await r.json();
             document.getElementById('out').innerHTML = d.map(x => `<p>✅ ${x.name} - ${x.price} บาท</p>`).join('');

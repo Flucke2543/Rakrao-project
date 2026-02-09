@@ -34,7 +34,6 @@
     if (confirm('ยืนยันว่าจะลบชิ้นนี้ใช่ไหม?')) {
         await fetch('/api/products/' + id, { method: 'DELETE' });
         load(); // ลบเสร็จแล้วให้โหลดรายการใหม่มาโชว์ทันที
-    }
         }
         async function edit(id) {
         const newName = prompt("ใส่ชื่อสินค้าใหม่:");

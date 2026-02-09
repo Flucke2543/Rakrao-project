@@ -16,7 +16,8 @@
         </nav>
 
         <div style="padding: 20px; border-top: 1px solid #333;">
-            <button onclick="location.href='/login'" style="width: 100%; padding: 8px; background: none; border: 1px solid #ff5252; color: #ff5252; border-radius: 5px; cursor: pointer;">Logout</button>
+            <button onclick="logout()" style="width: 100%; padding: 8px; background: none; border: 1px solid #ff5252; color: #ff5252; border-radius: 5px; cursor: pointer;">Logout</button>
+        
         </div>
     </div>
 
@@ -43,6 +44,16 @@
                 </div> </div>  </div>
 
     <script>
+        if (localStorage.getItem('rakrao_auth') !== 'true') {
+        alert('กรุณาล็อคอิน');
+        location.href = '/login'; // ดีดกลับไปหน้า Login ทันที
+        }
+
+        // 🚪 2. ฟังก์ชัน Logout: สำหรับทำลายบัตรผ่าน
+        function logout() {
+        localStorage.removeItem('rakrao_auth');
+        location.href = '/'; // กลับไปหน้าตลาด
+        }
         // ฟังก์ชันสลับหน้า (หัวใจของ Sidebar)
         function showSection(name) {
             document.getElementById('section-user').style.display = name === 'user' ? 'block' : 'none';

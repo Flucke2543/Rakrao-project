@@ -10,10 +10,18 @@ const productController = require('./modules/products/product.controller');
 app.use(express.json()); 
 
 // การแสดงผลหน้าแรกของโปรแกรม เมื่อถูกเข้า
+// 1. หน้าหลัก (Homepage / Dashboard)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html')); //
+    res.sendFile(path.join(__dirname, 'src', 'index.html'));
 });
-
+// 2. หน้าจัดการสินค้า (Products Management)
+app.get('/products', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'products.html'));
+});
+// 3. หน้าเข้าสู่ระบบ (Login Page)
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'login.html'));
+});
 // เส้นทาง API
 app.get('/api/products', productController.getAllProducts);
 //CRUD สร้าง ลบ แก้ไข แสดง

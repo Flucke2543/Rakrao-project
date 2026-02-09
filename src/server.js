@@ -14,9 +14,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html')); //
 });
 
-// เส้นทาง API
+// เส้นทาง API Node เชื่อมหน้าเว็บกับ Data (ค้นหาสินค้า) 
 app.get('/api/products', productController.getAllProducts);
-//
+// เขียนข้อมูลลงใน Database (เพิ่มรายการสินค้า)
 app.post('/api/products', productController.createProduct);
 //
 app.listen(port, () => {

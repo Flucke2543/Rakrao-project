@@ -1,26 +1,58 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>Rakrao Admin</title></head>
-<body style="background-color: #1e1e1e; color: #e0e0e0; font-family: sans-serif; padding: 20px;">
-    <h1>🌳 ระบบจัดการสินค้า Rakrao</h1>
-    <input type="text" id="n" placeholder="ชื่อสินค้า">
-    <input type="number" id="p" placeholder="ราคา">
-    <button onclick="add()">บันทึกรายการ</button>
-    <hr>
-    <div id="out"></div>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Rakrao Admin Dashboard</title>
+</head>
+<body style="background-color: #1e1e1e; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex;">
+
+    <div style="width: 260px; background-color: #252526; height: 100vh; position: fixed; border-right: 1px solid #333; display: flex; flex-direction: column;">
+        <div style="padding: 30px 20px;">
+            <h2 style="color: #4caf50; margin: 0;">🌿 RAKRAO</h2>
+        </div>
+        
+        <nav style="flex-grow: 1; padding: 10px;">
+            <div onclick="showSection('user')" style="cursor:pointer; padding: 12px 15px; color: #4caf50; background: #2d2d2d; border-radius: 8px; margin-bottom: 5px;">👤 ข้อมูลผู้ใช้งาน</div>
+            <div onclick="showSection('inventory')" style="cursor:pointer; padding: 12px 15px; color: #bbb;">📦 จัดการสินค้า</div>
+        </nav>
+
+        <div style="padding: 20px; border-top: 1px solid #333;">
+            <button onclick="location.href='/login'" style="width: 100%; padding: 8px; background: none; border: 1px solid #ff5252; color: #ff5252; border-radius: 5px; cursor: pointer;">Logout</button>
+        </div>
+    </div>
+
+    <div style="margin-left: 260px; padding: 40px; width: 100%;">
+        
+        <div id="section-user">
+            <h1>หน้าหลัก / ข้อมูลผู้ใช้งาน</h1>
+            <div style="background: #252526; padding: 25px; border-radius: 12px; border: 1px solid #333;">
+                <h3>ยินดีต้อนรับคุณ, <span style="color: #4caf50;">Admin</span></h3>
+                <p>วันนี้ระบบทำงานปกติ สินค้าในสต็อก: <span id="stat-count">...</span> รายการ</p>
+            </div>
+        </div>
+
+        <div id="section-inventory" style="display: none;">
+            <h1>จัดการสินค้า</h1>
+            
+            <div style="background: #252526; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+                <input id="name" type="text" placeholder="ชื่อสินค้า" style="padding: 10px; border-radius: 5px; border: 1px solid #444; background: #1e1e1e; color: white;">
+                <input id="price" type="number" placeholder="ราคา" style="padding: 10px; border-radius: 5px; border: 1px solid #444; background: #1e1e1e; color: white;">
+                <button onclick="add()" style="padding: 10px 20px; background: #4caf50; color: white; border: none; border-radius: 5px; cursor: pointer;">+ เพิ่มสินค้า</button>
+            </div>
+
+            <div id="list" style="display: grid; gap: 10px;">
+                </div>
+        </div>
+
+    </div>
+
     <script>
-        async function add() {
-            const name = document.getElementById('n').value;
-            const price = document.getElementById('p').value;
-            await fetch('/api/products', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ name, price: Number(price) })
-            });
-            document.getElementById('n').value = '';
-            document.getElementById('p').value = '';
-            load();
+        // ฟังก์ชันสลับหน้า (หัวใจของ Sidebar)
+        function showSection(name) {
+            document.getElementById('section-user').style.display = name === 'user' ? 'block' : 'none';
+            document.getElementById('section-inventory').style.display = name === 'inventory' ? 'block' : 'none';
         }
+    <script>
         async function load() {
             const r = await fetch('/api/products');
             const d = await r.json();
@@ -34,6 +66,18 @@
                 </div>
             `).join('');}
         load();
+        async function add() {
+            const name = document.getElementById('n').value;
+            const price = document.getElementById('p').value;
+            await fetch('/api/products', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ name, price: Number(price) })
+            });
+            document.getElementById('n').value = '';
+            document.getElementById('p').value = '';
+            load();
+        }
         async function deleteProduct(id) {
             if (confirm('คุณแน่ใจนะว่าจะลบ?')) {
                 await fetch(`/api/products/${id}`, { method: 'DELETE' });

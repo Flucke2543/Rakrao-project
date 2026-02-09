@@ -3,7 +3,6 @@ let products = []; // ที่เก็บข้อมูลชั่วคร�
 exports.getAllProducts = (req, res) => {
     res.json(products);
 };
-
 exports.createProduct = (req, res) => {
     const newProduct = {
         id: products.length + 1,

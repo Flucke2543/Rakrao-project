@@ -18,6 +18,10 @@ app.get('/', (req, res) => {
 app.get('/api/products', productController.getAllProducts);
 // เขียนข้อมูลลงใน Database (เพิ่มรายการสินค้า)
 app.post('/api/products', productController.createProduct);
+// สำหรับแก้ไขข้อมูล
+app.put('/api/products/:id', productController.updateProduct);   
+// สำหรับลบข้อมูล
+app.delete('/api/products/:id', productController.deleteProduct); 
 // สั่งรันโปรแกรมทั้งหมด 
 app.listen(port, () => {
     //

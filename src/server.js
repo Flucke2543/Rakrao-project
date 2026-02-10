@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 // 2. หน้าจัดการสินค้า (Products Management)
-app.get('/products', (req, res) => {
+app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 // 3. หน้าจัดการสินค้า (Vendor Dashboard) - หน้าที่มีปุ่ม เพิ่ม/ลบ/แก้ไข (ย้ายมาจาก index เดิม)

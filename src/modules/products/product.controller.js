@@ -48,8 +48,5 @@ exports.updateProduct = (req, res) => {
     ...products[index],
     ...req.body
   };
-
   res.json(products[index]);
-};
-    }
 };

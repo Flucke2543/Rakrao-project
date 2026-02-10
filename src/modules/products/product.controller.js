@@ -1,5 +1,4 @@
 let products = []; // ที่เก็บข้อมูลชั่วคราว
-
 exports.getAllProducts = (req, res) => {
     res.json(products);
 };

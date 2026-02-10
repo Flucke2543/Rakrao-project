@@ -35,8 +35,8 @@
 
             // รหัสผ่านชั่วคราว (แก้เป็นอะไรก็ได้ที่นายอยากใช้)
             if (u === 'Admin' && p === '1234') {
-                localStorage.setItem('rakrao_auth', 'true');
-                location.href = '/vendor/manage'; // วาร์ปไปไฟล์เก่าที่เปลี่ยนชื่อแล้ว
+               localStorage.setItem('isLoggedIn', 'true');
+               location.href = '/vendor/manage'; // วาร์ปไปไฟล์เก่าที่เปลี่ยนชื่อแล้ว
             } else {
                 document.getElementById('error-msg').innerText = 'รหัสผิด! ลองใหม่อีกทีเพื่อน';
             }

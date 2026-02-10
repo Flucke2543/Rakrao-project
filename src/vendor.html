@@ -13,6 +13,11 @@
         <nav style="flex-grow: 1; padding: 10px;">
             <div onclick="showSection('user')" style="cursor:pointer; padding: 12px 15px; color: #4caf50; background: #2d2d2d; border-radius: 8px; margin-bottom: 5px;">👤 ข้อมูลผู้ใช้งาน</div>
             <div onclick="showSection('inventory')" style="cursor:pointer; padding: 12px 15px; color: #bbb;">📦 จัดการสินค้า</div>
+   
+            <a href="index.html" style="text-decoration: none; color: #ffd700; display: flex; align-items: center; padding: 10px; margin-top: 10px;"> 
+    🏠 <span style="margin-left: 10px;">หน้าหลัก / ดูสินค้า</span>
+</a> 
+        
         </nav>
 
         <div style="padding: 20px; border-top: 1px solid #333;">
@@ -59,11 +64,11 @@
             document.getElementById('section-user').style.display = name === 'user' ? 'block' : 'none';
             document.getElementById('section-inventory').style.display = name === 'inventory' ? 'block' : 'none';
         }
-        // 2. โหลดข้อมูล
+        // 2. โหลดข้อมูล                                                   // 16- 18
         async function load() {
             const r = await fetch('/api/products');
             const d = await r.json();
-            // อัปเดตตัวเลขหน้าแรก
+            // อัปเดตตัวเลขหน้าแรก 
             document.getElementById('stat-count').innerText = d.length;
             // พ่นรายการสินค้า
             document.getElementById('list').innerHTML = d.map(x => `
@@ -108,3 +113,6 @@
             }
         }
     </script>  </body>  </html>
+
+
+

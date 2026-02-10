@@ -1,31 +1,55 @@
 let products = []; // ที่เก็บข้อมูลชั่วคราว
+let currentId = 1; 
 exports.getAllProducts = (req, res) => {
     res.json(products);
 };
+// ระบบเพิ่มสินค้า
 exports.createProduct = (req, res) => {
-    const newProduct = {
-        id: products.length + 1,
-        name: req.body.name,
-        price: req.body.price
-    };
-    products.push(newProduct);
-    res.status(201).json({ message: "สำเร็จ", data: newProduct });
+  const { name, price } = req.body;
+
+  if (!name || typeof price !== 'number') {
+    return res.status(400).json({
+      message: 'name ต้องมี และ price ต้องเป็นตัวเลข'
+    });
+  }
+
+  const product = {
+  id: currentId++,
+  name,
+  price
+};
+
+  products.push(product);
+  res.status(201).json(product);
 };
 // ระบบลบสินค้า
 exports.deleteProduct = (req, res) => {
-    const id = Number(req.params.id);
-    // กรองเอาตัวที่ id ไม่ตรงเก็บไว้ (ตัวที่ตรงกับ id ที่ส่งมาจะหายไป)
-    products = products.filter(p => p.id !== id); 
-    res.json({ message: "ลบสำเร็จ" });
+  const id = Number(req.params.id);
+  const index = products.findIndex(p => p.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'ไม่พบสินค้า' });
+  }
+
+  products.splice(index, 1);
+  res.json({ message: 'ลบสินค้าแล้ว' });
 };
 
 // ระบบแก้ไขสินค้า
 exports.updateProduct = (req, res) => {
-    const id = Number(req.params.id);
-    const { name, price } = req.body;
-    const index = products.findIndex(p => p.id === id);
-    if (index !== -1) {
-        products[index] = { id, name, price };
-        res.json({ message: "แก้ไขสำเร็จ" });
+  const id = Number(req.params.id);
+  const index = products.findIndex(p => p.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ message: 'ไม่พบสินค้า' });
+  }
+
+  products[index] = {
+    ...products[index],
+    ...req.body
+  };
+
+  res.json(products[index]);
+};
     }
 };

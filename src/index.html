@@ -77,14 +77,6 @@
                 </div>
             `).join('');
         }
-        function searchProduct() {
-        const input = document.getElementById('searchInput').value.toLowerCase(); // รับคำค้นหา
-        // ... (โค้ดกรองสินค้าจะอยู่ตรงนี้)
-        window.onload = function() {
-            checkLoginStatus(); // ✅ (ต้องมีวงเล็บ) เพื่อสั่งรันฟังก์ชันเช็คกุญแจทันที
-            loadMarket();       // โหลดสินค้ามาโชว์ทันที
-        }; 
-        }
         loadMarket();
         // --- เพิ่มโค้ดเช็คสถานะล็อกอินตรงนี้ ---
         function checkLoginStatus() {

@@ -3,11 +3,12 @@ const path = require('path'); //ประกาศเรียกเครื่
 const app = express(); //สร้างพื้นที่บนหน้าโปรแกรมสำหรับใส่ทุกคำสั่งด้านล่างลงไป เหมือนสมองหลักแต่ว่าแค่อุ่นเครืองก่อน
 const port = process.env.PORT || 3000; //พิกัดของโปรแกรมที่จะบอกกับคอมพิวเตอร์เครื่องนั้นๆที่ใช้งาน เหมือนเป็นส่วนหนึ่งของ IPเครื่อง
 
-// ดึงข้อมูลส่วนสินค้ามาเชื่อมต่อ
-const productController = require('./modules/products/product.controller');
-
 //สร้างตัวแปลภาษา J.son
 app.use(express.json()); 
+
+// 👉 เรียก routes สินค้า
+const productRoutes = require('./routes/product.routes');
+app.use('/api/products', productRoutes);
 
 // --- 🌐 [ส่วนที่ 1: การจัดการเส้นทางหน้าเว็บ (HTML Routes)] ---
 // 1. หน้าแรก (Marketplace) - คนซื้อเข้ามาดูสินค้าสวยๆ
@@ -22,12 +23,7 @@ app.get('/products', (req, res) => {
 app.get('/vendor/manage', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'vendor.html'));
 });
-// เส้นทาง API
-app.get('/api/products', productController.getAllProducts);
-//CRUD สร้าง ลบ แก้ไข แสดง
-app.post('/api/products', productController.createProduct);
-app.put('/api/products/:id', productController.updateProduct);
-app.delete('/api/products/:id', productController.deleteProduct);
+
 //
 app.listen(port, () => {
     //

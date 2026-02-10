@@ -44,14 +44,46 @@
             
             document.getElementById('market-list').innerHTML = data.map(x => `
                 <div style="background: #1e1e1e; border-radius: 12px; overflow: hidden; border: 1px solid #333; transition: 0.3s; position: relative;">
-                    <div style="height: 160px; background: #2a2a2a; display: flex; align-items: center; justify-content: center; font-size: 50px;">🐟</div>
+                    <div style="height: 160px; background: #2a2a2a; display: flex; align-items: center; justify-content: center; font-size: 50px;">🍱</div>
                     <div style="padding: 15px;">
                         <h3 style="margin: 0; font-size: 18px; color: #fff;">${x.name}</h3>
                         <p style="color: #4caf50; font-size: 20px; font-weight: bold; margin: 10px 0;">฿${x.price}</p>
                         <button style="width: 100%; padding: 10px; background: #4caf50; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">หยิบลงตะกร้า</button>
                     </div>
                 </div>
+                <div style="display: flex; gap: 10px; margin-bottom: 30px;">
+                    <input id="searchInput" type="text" placeholder="ค้นหาสินค้าที่ต้องการ..." 
+                            style="flex-grow: 1; padding: 12px 20px; background: #1e1e1e; border: 1px solid #333; color: white; border-radius: 10px; outline: none;">
+                    <button onclick="searchProduct()" 
+                            style="padding: 0 20px; background: #4caf50; border: none; color: white; border-radius: 10px; cursor: pointer; font-weight: bold;">ค้นหา</button>
+                </div>
             `).join('');
+        }
+    <script>
+        // 1. ฟังก์ชันโหลดสินค้าจากระบบหลังบ้านมาแสดงที่หน้าตลาด
+        async function loadMarket() {
+            const response = await fetch('/api/products'); // ไปหยิบข้อมูลสินค้าจาก Server
+            const products = await response.json();        // แปลงข้อมูลเป็นรูปแบบที่ JS เข้าใจ
+            displayProducts(products);                     // ส่งข้อมูลไปวาดบนหน้าจอ
+        }
+        // 2. ฟังก์ชันสำหรับวาดรายการสินค้า (แยกออกมาเพื่อให้ระบบค้นหาเรียกใช้ซ้ำได้)
+        function displayProducts(products) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = products.map(p => `
+                <div style="background: #1e1e1e; border: 1px solid #333; border-radius: 15px; padding: 15px;">
+                    <div style="...">🌿</div>
+                    <h3 style="...">${p.name}</h3>
+                    <p style="...">฿${p.price}</p>
+                </div>
+            `).join('');
+        }
+        function searchProduct() {
+        const input = document.getElementById('searchInput').value.toLowerCase(); // รับคำค้นหา
+        // ... (โค้ดกรองสินค้าจะอยู่ตรงนี้)
+        window.onload = function() {
+            checkLoginStatus(); // ✅ (ต้องมีวงเล็บ) เพื่อสั่งรันฟังก์ชันเช็คกุญแจทันที
+            loadMarket();       // โหลดสินค้ามาโชว์ทันที
+        }; 
         }
         loadMarket();
         // --- เพิ่มโค้ดเช็คสถานะล็อกอินตรงนี้ ---

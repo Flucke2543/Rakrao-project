@@ -9,7 +9,7 @@
     <div style="background: #1e1e1e; padding: 40px; border-radius: 20px; border: 1px solid #333; width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
         <div style="font-size: 40px; margin-bottom: 10px;">🌿</div>
         <h2 style="margin: 0; color: #4caf50;">เข้าสู่ระบบจัดการ</h2>
-        <p style="color: #888; font-size: 13px; margin-bottom: 25px;">เฉพาะเจ้าของร้านเท่านั้นโว้ยยย</p>
+        <p style="color: #888; font-size: 13px; margin-bottom: 25px;">กรุณากรอกอีเมลล์หรือเบอร์โทรศัพท์</p>
 
         <div style="text-align: left; margin-bottom: 15px;">
             <label style="font-size: 12px; color: #aaa;">ชื่อผู้ใช้งาน</label>
@@ -34,7 +34,7 @@
             const p = document.getElementById('pass').value;
 
             // รหัสผ่านชั่วคราว (แก้เป็นอะไรก็ได้ที่นายอยากใช้)
-            if (u === 'admin' && p === '1234') {
+            if (u === 'Admin' && p === '1234') {
                 localStorage.setItem('rakrao_auth', 'true');
                 location.href = '/vendor/manage'; // วาร์ปไปไฟล์เก่าที่เปลี่ยนชื่อแล้ว
             } else {

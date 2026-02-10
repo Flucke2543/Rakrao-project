@@ -49,14 +49,14 @@
                 </div> </div>  </div>
 
     <script>
-        if (localStorage.getItem('rakrao_auth') !== 'true') {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
         alert('กรุณาล็อคอิน');
         location.href = '/login'; // ดีดกลับไปหน้า Login ทันที
         }
 
         // 🚪 2. ฟังก์ชัน Logout: สำหรับทำลายบัตรผ่าน
         function logout() {
-        localStorage.removeItem('rakrao_auth');
+        localStorage.removeItem('isLoggedIn');
         location.href = '/'; // กลับไปหน้าตลาด
         }
         // ฟังก์ชันสลับหน้า (หัวใจของ Sidebar)

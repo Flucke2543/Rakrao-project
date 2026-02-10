@@ -28,7 +28,7 @@ app.get('/vendor/manage', (req, res) => {
 app.listen(port, () => {
     //
     console.log(`
-    🌳 Rakrao Marketplace System is Running!
+    🌳 Sart Ŋ̃ern Marketplace System is Running!
     -----------------------------------------
     🏠 Market Front: http://localhost:${port}
     🔑 Login Page:   http://localhost:${port}/login

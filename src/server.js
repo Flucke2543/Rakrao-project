@@ -21,7 +21,7 @@ app.get('/products', (req, res) => {
 });
 // 3. หน้าจัดการสินค้า (Vendor Dashboard) - หน้าที่มีปุ่ม เพิ่ม/ลบ/แก้ไข (ย้ายมาจาก index เดิม)
 app.get('/vendor/manage', (req, res) => {
-    res.sendFile(path.join(__dirname, 'src', 'vendor.html'));
+    res.sendFile(path.join(__dirname, 'vendor.html'));
 });
 
 //
